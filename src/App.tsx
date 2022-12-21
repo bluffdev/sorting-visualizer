@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
+import { bubbleSort } from "./algos";
 
 function generateArray() {
   let values = new Set<number>();
@@ -16,26 +17,15 @@ function generateArray() {
 
 export default function App() {
   let [array, setArray] = useState(generateArray());
-
-  function bubbleSort(a: number[]) {
-    for (let i = 0; i < a.length; i++) {
-      for (let j = 0; j < a.length - i - 1; j++) {
-        if (a[j] > a[j + 1]) {
-          let temp = a[j];
-          a[j] = a[j + 1];
-          a[j + 1] = temp;
-        }
-      }
-    }
-    return new Array(...a);
-  }
+  let [running, setRunning] = useState(false);
 
   return (
     <>
       <button
         className="border-1 p-2"
         onClick={() => {
-          setArray(bubbleSort(array));
+          setRunning(true);
+          bubbleSort(array, setArray, setRunning);
         }}
       >
         Sort
@@ -45,51 +35,19 @@ export default function App() {
         onClick={() => {
           setArray(generateArray());
         }}
+        disabled={running}
       >
         Reset
       </button>
       <div className="flex">
         {array.map((value) => (
           <div
-            className="border m-2 w-[25px]"
+            className="m-2 w-[25px] bg-gray-400"
             style={{ height: `${value * 5}px` }}
             key={value}
-          >
-            a
-          </div>
+          ></div>
         ))}
       </div>
     </>
   );
 }
-// let nextId = 0;
-
-// export default function List() {
-//   const [name, setName] = useState("");
-//   const [artists, setArtists] = useState(
-//     new Array<{ id: number; name: string }>()
-//   );
-
-//   return (
-//     <>
-//       <h1>Inspiring sculptors:</h1>
-//       <input value={name} onChange={(e) => setName(e.target.value)} />
-//       <button
-//         onClick={() => {
-//           setName("");
-//           artists.push({
-//             id: nextId++,
-//             name: name,
-//           });
-//         }}
-//       >
-//         Add
-//       </button>
-//       <ul>
-//         {artists.map((artist) => (
-//           <li key={artist.id}>{artist.name}</li>
-//         ))}
-//       </ul>
-//     </>
-//   );
-// }
