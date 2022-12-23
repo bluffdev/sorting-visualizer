@@ -1,16 +1,19 @@
 import { useState } from "react";
-import { bubbleSort } from "./algos";
+import { bubbleSort, block } from "./algos";
 
 function generateArray() {
   let values = new Set<number>();
-  let array = new Array<number>(50);
+  let array = new Array<block>(50);
   for (let i = 0; i < array.length; i++) {
     let newValue = Math.floor(Math.random() * (100 - 25) + 25);
     while (values.has(newValue)) {
       newValue = Math.floor(Math.random() * (100 - 25) + 25);
     }
     values.add(newValue);
-    array[i] = newValue;
+    array[i] = {
+      size: newValue,
+      color: "bg-gray-400",
+    };
   }
   return array;
 }
@@ -42,9 +45,9 @@ export default function App() {
       <div className="flex">
         {array.map((value) => (
           <div
-            className="m-2 w-[25px] bg-gray-400"
-            style={{ height: `${value * 5}px` }}
-            key={value}
+            className={`m-2 w-[25px] ${value.color}`}
+            style={{ height: `${value.size * 5}px` }}
+            key={value.size}
           ></div>
         ))}
       </div>
