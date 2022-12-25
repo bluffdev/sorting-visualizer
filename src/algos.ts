@@ -1,6 +1,7 @@
 export type block = {
   size: number;
   color: string;
+  key: number;
 };
 
 export function sleep(ms: number) {
@@ -33,5 +34,34 @@ export async function bubbleSort(
       setArray([...a]);
     }
   }
+  setRunning(false);
+}
+
+export async function selectionSort(
+  a: block[],
+  setArray: React.Dispatch<React.SetStateAction<block[]>>,
+  setRunning: React.Dispatch<React.SetStateAction<boolean>>
+) {
+  for (let i = 1; i < a.length; i++) {
+    let key = { ...a[i] } as block;
+    let j = i - 1;
+
+    while (j >= 0 && a[j].size > key.size) {
+      a[j + 1].color = "bg-red-400";
+      a[j].color = "bg-green-400";
+      setArray([...a]);
+      await sleep(10);
+      a[j + 1].size = a[j].size;
+      a[j + 1].color = "bg-gray-400";
+      a[j].color = "bg-gray-400";
+      setArray([...a]);
+      await sleep(10);
+      j -= 1;
+    }
+    a[j + 1].size = key.size;
+    setArray([...a]);
+    await sleep(10);
+  }
+  setArray([...a]);
   setRunning(false);
 }

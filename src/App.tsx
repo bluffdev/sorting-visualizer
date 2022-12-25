@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { bubbleSort, block } from "./algos";
+import { bubbleSort, block, selectionSort } from "./algos";
 
 function generateArray() {
   let values = new Set<number>();
@@ -13,6 +13,7 @@ function generateArray() {
     array[i] = {
       size: newValue,
       color: "bg-gray-400",
+      key: i,
     };
   }
   return array;
@@ -37,12 +38,24 @@ export default function App() {
               Bubble
             </button>
             <button
+              className="inline-block text-white bg-gray-800 border-0 py-2 px-6 focus:outline-none hover:bg-gray-900 rounded-lg"
+              onClick={() => {
+                setSelected("selection");
+              }}
+            >
+              Insertion
+            </button>
+            <button
               className="inline-block text-white bg-gray-800 border-0 py-2 px-6 focus:outline-none hover:bg-gray-900 rounded-lg ml-4"
               onClick={() => {
                 setRunning(true);
                 switch (selected) {
                   case "bubble":
                     bubbleSort(array, setArray, setRunning);
+                    break;
+                  case "selection":
+                    selectionSort(array, setArray, setRunning);
+                    break;
                   default:
                     console.log("Select an algorithm");
                 }
@@ -71,7 +84,7 @@ export default function App() {
           <div
             className={`m-2 w-[25px] ${value.color}`}
             style={{ height: `${value.size * 5}px` }}
-            key={value.size}
+            key={value.key}
           ></div>
         ))}
       </div>
