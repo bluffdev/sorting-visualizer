@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { bubbleSort, block, selectionSort } from "./algos";
+import { bubbleSort, block, insertionSort, selectionSort } from "./algos";
 
 function generateArray() {
   let values = new Set<number>();
@@ -43,10 +43,18 @@ export default function App() {
                 setSelected("selection");
               }}
             >
+              Selection
+            </button>
+            <button
+              className="inline-block text-white bg-gray-800 border-0 py-2 px-6 focus:outline-none hover:bg-gray-900 rounded-lg"
+              onClick={() => {
+                setSelected("insertion");
+              }}
+            >
               Insertion
             </button>
             <button
-              className="inline-block text-white bg-gray-800 border-0 py-2 px-6 focus:outline-none hover:bg-gray-900 rounded-lg ml-4"
+              className="inline-block text-white bg-gray-800 border-0 py-2 px-6 focus:outline-none hover:bg-gray-900 rounded-lg"
               onClick={() => {
                 setRunning(true);
                 switch (selected) {
@@ -56,15 +64,19 @@ export default function App() {
                   case "selection":
                     selectionSort(array, setArray, setRunning);
                     break;
+                  case "insertion":
+                    insertionSort(array, setArray, setRunning);
+                    break;
                   default:
                     console.log("Select an algorithm");
+                    break;
                 }
               }}
             >
               Start
             </button>
             <button
-              className="inline-block text-white bg-gray-800 border-0 py-2 px-6 focus:outline-none hover:bg-gray-900 rounded-lg ml-4"
+              className="inline-block text-white bg-gray-800 border-0 py-2 px-6 focus:outline-none hover:bg-gray-900 rounded-lg"
               onClick={() => {
                 setArray(generateArray());
               }}

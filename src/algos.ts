@@ -42,6 +42,43 @@ export async function selectionSort(
   setArray: React.Dispatch<React.SetStateAction<block[]>>,
   setRunning: React.Dispatch<React.SetStateAction<boolean>>
 ) {
+  for (let i = 0; i < a.length - 1; i++) {
+    a[i].color = "bg-orange-400";
+    let min_idx = i;
+    for (let j = i + 1; j < a.length; j++) {
+      a[j].color = "bg-red-400";
+      setArray([...a]);
+      await sleep(20);
+      if (a[j].size < a[min_idx].size) {
+        if (min_idx !== i) {
+          a[min_idx].color = "bg-gray-400";
+        }
+        min_idx = j;
+        a[min_idx].color = "bg-green-400";
+        setArray([...a]);
+      } else {
+        a[j].color = "bg-gray-400";
+        setArray([...a]);
+      }
+    }
+
+    let temp = a[min_idx];
+    a[min_idx] = a[i];
+    a[i] = temp;
+    a[i].color = "bg-gray-400";
+    a[min_idx].color = "bg-gray-400";
+
+    setArray([...a]);
+  }
+  setArray([...a]);
+  setRunning(false);
+}
+
+export async function insertionSort(
+  a: block[],
+  setArray: React.Dispatch<React.SetStateAction<block[]>>,
+  setRunning: React.Dispatch<React.SetStateAction<boolean>>
+) {
   for (let i = 1; i < a.length; i++) {
     let key = { ...a[i] } as block;
     let j = i - 1;
