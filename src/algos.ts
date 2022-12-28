@@ -4,7 +4,7 @@ export type block = {
   key: number;
 };
 
-export function sleep(ms: number) {
+function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
@@ -101,4 +101,63 @@ export async function insertionSort(
   }
   setArray([...a]);
   setRunning(false);
+}
+
+async function partition(
+  a: block[],
+  low: number,
+  high: number,
+  setArray: React.Dispatch<React.SetStateAction<block[]>>
+) {
+  let pivot = a[high];
+  let i = low - 1;
+
+  pivot.color = "bg-green-400";
+  setArray([...a]);
+  sleep(20);
+
+  for (let j = low; j <= high - 1; j++) {
+    if (i > 0) {
+      a[i].color = "bg-orange-400";
+    }
+    a[j].color = "bg-red-400";
+    setArray([...a]);
+    await sleep(30);
+    if (a[j].size < pivot.size) {
+      if (i > 0) {
+        a[i].color = "bg-gray-400";
+      }
+      i += 1;
+      a[j].color = "bg-gray-400";
+      let temp = a[i];
+      a[i] = a[j];
+      a[j] = temp;
+      setArray([...a]);
+      await sleep(30);
+    }
+    a[j].color = "bg-gray-400";
+  }
+  if (i > 0) {
+    a[i].color = "bg-gray-400";
+  }
+  let temp = a[i + 1];
+  a[i + 1] = a[high];
+  a[high] = temp;
+  pivot.color = "bg-gray-400";
+  setArray([...a]);
+  await sleep(30);
+  return i + 1;
+}
+
+export async function quickSort(
+  a: block[],
+  low: number,
+  high: number,
+  setArray: React.Dispatch<React.SetStateAction<block[]>>
+) {
+  if (low < high) {
+    let pi = await partition(a, low, high, setArray);
+    await quickSort(a, low, pi - 1, setArray);
+    await quickSort(a, pi + 1, high, setArray);
+  }
 }

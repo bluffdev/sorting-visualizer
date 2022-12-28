@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { bubbleSort, block, insertionSort, selectionSort } from "./algos";
+import {
+  bubbleSort,
+  block,
+  insertionSort,
+  selectionSort,
+  quickSort,
+} from "./algos";
 
 function generateArray() {
   let values = new Set<number>();
@@ -56,6 +62,14 @@ export default function App() {
             <button
               className="inline-block text-white bg-gray-800 border-0 py-2 px-6 focus:outline-none hover:bg-gray-900 rounded-lg"
               onClick={() => {
+                setSelected("quick");
+              }}
+            >
+              Quick
+            </button>
+            <button
+              className="inline-block text-white bg-gray-800 border-0 py-2 px-6 focus:outline-none hover:bg-gray-900 rounded-lg"
+              onClick={() => {
                 setRunning(true);
                 switch (selected) {
                   case "bubble":
@@ -66,6 +80,11 @@ export default function App() {
                     break;
                   case "insertion":
                     insertionSort(array, setArray, setRunning);
+                    break;
+                  case "quick":
+                    quickSort(array, 0, array.length - 1, setArray).then(() =>
+                      setRunning(false)
+                    );
                     break;
                   default:
                     console.log("Select an algorithm");
