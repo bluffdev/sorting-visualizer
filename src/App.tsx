@@ -1,26 +1,13 @@
 import React, { useState } from "react";
-import { bubbleSort, block, insertionSort, selectionSort, quickSort } from "./algos";
-
-function generateArray(size: number) {
-  let values = new Set<number>();
-  let array = new Array<block>(size);
-  for (let i = 0; i < size; i++) {
-    let newValue = Math.floor(Math.random() * (275 - 25) + 25);
-    values.add(newValue);
-    array[i] = {
-      size: newValue,
-      color: "bg-gray-400",
-      key: i,
-    };
-  }
-  return array;
-}
+import { generateArray } from "./utils";
+import { bubbleSort, insertionSort, selectionSort, quickSort } from "./algos";
 
 export default function App() {
   let [size, setSize] = useState(80);
   let [speed, setSpeed] = useState(7);
   let [array, setArray] = useState(generateArray(size));
   let [running, setRunning] = useState(false);
+  let [finished, setFinished] = useState(false);
   let [selected, setSelected] = useState("");
 
   return (
@@ -69,24 +56,24 @@ export default function App() {
                 setRunning(true);
                 switch (selected) {
                   case "bubble":
-                    bubbleSort(array, setArray, setRunning, 20 - speed);
+                    bubbleSort(array, setArray, 20 - speed).then(() => setRunning(false));
                     break;
                   case "selection":
-                    selectionSort(array, setArray, setRunning, 20 - speed);
+                    selectionSort(array, setArray, 20 - speed).then(() => setRunning(false));
                     break;
                   case "insertion":
-                    insertionSort(array, setArray, setRunning, 20 - speed);
+                    insertionSort(array, setArray, 20 - speed).then(() => setRunning(false));
                     break;
                   case "quick":
-                    quickSort(array, 0, array.length - 1, setArray, 20 - speed).then(() =>
-                      setRunning(false)
-                    );
+                    quickSort(array, setArray, 20 - speed).then(() => setRunning(false));
                     break;
                   default:
                     setRunning(false);
                     break;
                 }
+                setFinished(true);
               }}
+              disabled={running || finished}
             >
               Start
             </button>
