@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  bubbleSort,
-  block,
-  insertionSort,
-  selectionSort,
-  quickSort,
-} from "./algos";
+import { bubbleSort, block, insertionSort, selectionSort, quickSort } from "./algos";
 
 function generateArray(size: number) {
   let values = new Set<number>();
@@ -24,6 +18,7 @@ function generateArray(size: number) {
 
 export default function App() {
   let [size, setSize] = useState(80);
+  let [speed, setSpeed] = useState(7);
   let [array, setArray] = useState(generateArray(size));
   let [running, setRunning] = useState(false);
   let [selected, setSelected] = useState("");
@@ -46,7 +41,15 @@ export default function App() {
               }}
             />
             <label className=" text-white py-2 px-6">Speed</label>
-            <input type="range" min="0" max="100" />
+            <input
+              type="range"
+              min="0"
+              max="14"
+              value={speed}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                setSpeed(Number(event.target.value));
+              }}
+            />
             <select
               className="inline-block text-white bg-gray-800 border-0 py-2 px-6 mx-3 focus:outline-none hover:bg-gray-900 rounded-lg"
               value={selected}
@@ -66,16 +69,16 @@ export default function App() {
                 setRunning(true);
                 switch (selected) {
                   case "bubble":
-                    bubbleSort(array, setArray, setRunning);
+                    bubbleSort(array, setArray, setRunning, 20 - speed);
                     break;
                   case "selection":
-                    selectionSort(array, setArray, setRunning);
+                    selectionSort(array, setArray, setRunning, 20 - speed);
                     break;
                   case "insertion":
-                    insertionSort(array, setArray, setRunning);
+                    insertionSort(array, setArray, setRunning, 20 - speed);
                     break;
                   case "quick":
-                    quickSort(array, 0, array.length - 1, setArray).then(() =>
+                    quickSort(array, 0, array.length - 1, setArray, 20 - speed).then(() =>
                       setRunning(false)
                     );
                     break;

@@ -11,14 +11,15 @@ function sleep(ms: number) {
 export async function bubbleSort(
   a: block[],
   setArray: React.Dispatch<React.SetStateAction<block[]>>,
-  setRunning: React.Dispatch<React.SetStateAction<boolean>>
+  setRunning: React.Dispatch<React.SetStateAction<boolean>>,
+  speed: number
 ) {
   for (let i = 0; i < a.length; i++) {
     for (let j = 0; j < a.length - i - 1; j++) {
       a[j].color = "bg-red-400";
       a[j + 1].color = "bg-green-400";
       setArray([...a]);
-      await sleep(5);
+      await sleep(speed);
       if (a[j].size > a[j + 1].size) {
         let temp = a[j];
         a[j] = a[j + 1];
@@ -30,7 +31,7 @@ export async function bubbleSort(
       } else {
         a[j + 1].color = "bg-red-400";
       }
-      await sleep(5);
+      await sleep(speed);
       setArray([...a]);
     }
   }
@@ -40,7 +41,8 @@ export async function bubbleSort(
 export async function selectionSort(
   a: block[],
   setArray: React.Dispatch<React.SetStateAction<block[]>>,
-  setRunning: React.Dispatch<React.SetStateAction<boolean>>
+  setRunning: React.Dispatch<React.SetStateAction<boolean>>,
+  speed: number
 ) {
   for (let i = 0; i < a.length - 1; i++) {
     a[i].color = "bg-orange-400";
@@ -48,7 +50,7 @@ export async function selectionSort(
     for (let j = i + 1; j < a.length; j++) {
       a[j].color = "bg-red-400";
       setArray([...a]);
-      await sleep(20);
+      await sleep(speed);
       if (a[j].size < a[min_idx].size) {
         if (min_idx !== i) {
           a[min_idx].color = "bg-gray-400";
@@ -60,6 +62,7 @@ export async function selectionSort(
         a[j].color = "bg-gray-400";
         setArray([...a]);
       }
+      await sleep(speed);
     }
 
     let temp = a[min_idx];
@@ -77,7 +80,8 @@ export async function selectionSort(
 export async function insertionSort(
   a: block[],
   setArray: React.Dispatch<React.SetStateAction<block[]>>,
-  setRunning: React.Dispatch<React.SetStateAction<boolean>>
+  setRunning: React.Dispatch<React.SetStateAction<boolean>>,
+  speed: number
 ) {
   for (let i = 1; i < a.length; i++) {
     let key = { ...a[i] } as block;
@@ -87,17 +91,17 @@ export async function insertionSort(
       a[j + 1].color = "bg-red-400";
       a[j].color = "bg-green-400";
       setArray([...a]);
-      await sleep(10);
+      await sleep(speed);
       a[j + 1].size = a[j].size;
       a[j + 1].color = "bg-gray-400";
       a[j].color = "bg-gray-400";
       setArray([...a]);
-      await sleep(10);
+      await sleep(speed);
       j -= 1;
     }
     a[j + 1].size = key.size;
     setArray([...a]);
-    await sleep(10);
+    await sleep(speed);
   }
   setArray([...a]);
   setRunning(false);
@@ -107,14 +111,15 @@ async function partition(
   a: block[],
   low: number,
   high: number,
-  setArray: React.Dispatch<React.SetStateAction<block[]>>
+  setArray: React.Dispatch<React.SetStateAction<block[]>>,
+  speed: number
 ) {
   let pivot = a[high];
   let i = low - 1;
 
   pivot.color = "bg-green-400";
   setArray([...a]);
-  sleep(20);
+  sleep(speed);
 
   for (let j = low; j <= high - 1; j++) {
     if (i > 0) {
@@ -122,7 +127,7 @@ async function partition(
     }
     a[j].color = "bg-red-400";
     setArray([...a]);
-    await sleep(30);
+    await sleep(speed);
     if (a[j].size < pivot.size) {
       if (i > 0) {
         a[i].color = "bg-gray-400";
@@ -133,7 +138,7 @@ async function partition(
       a[i] = a[j];
       a[j] = temp;
       setArray([...a]);
-      await sleep(30);
+      await sleep(speed);
     }
     a[j].color = "bg-gray-400";
   }
@@ -153,11 +158,12 @@ export async function quickSort(
   a: block[],
   low: number,
   high: number,
-  setArray: React.Dispatch<React.SetStateAction<block[]>>
+  setArray: React.Dispatch<React.SetStateAction<block[]>>,
+  speed: number
 ) {
   if (low < high) {
-    let pi = await partition(a, low, high, setArray);
-    await quickSort(a, low, pi - 1, setArray);
-    await quickSort(a, pi + 1, high, setArray);
+    let pi = await partition(a, low, high, setArray, speed);
+    await quickSort(a, low, pi - 1, setArray, speed);
+    await quickSort(a, pi + 1, high, setArray, speed);
   }
 }
