@@ -7,18 +7,18 @@ export async function bubbleSort(
 ) {
   for (let i = 0; i < a.length; i++) {
     for (let j = 0; j < a.length - i - 1; j++) {
-      a[j].color = "bg-red-400";
-      a[j + 1].color = "bg-green-400";
+      a[j].color = "bg-blue-500";
+      a[j + 1].color = "bg-purple-500";
       setArray([...a]);
       await sleep(speed);
       if (a[j].size > a[j + 1].size) {
         swap(a, j, j + 1);
       }
-      a[j].color = "bg-gray-400";
+      a[j].color = "bg-gray-600";
       if (j + 1 === a.length - i - 1) {
-        a[j + 1].color = "bg-gray-400";
+        a[j + 1].color = "bg-gray-600";
       } else {
-        a[j + 1].color = "bg-red-400";
+        a[j + 1].color = "bg-purple-500";
       }
       await sleep(speed);
       setArray([...a]);
@@ -32,29 +32,29 @@ export async function selectionSort(
   speed: number
 ) {
   for (let i = 0; i < a.length - 1; i++) {
-    a[i].color = "bg-orange-400";
+    a[i].color = "bg-orange-500";
     let min_idx = i;
     for (let j = i + 1; j < a.length; j++) {
-      a[j].color = "bg-red-400";
+      a[j].color = "bg-blue-500";
       setArray([...a]);
       await sleep(speed);
       if (a[j].size < a[min_idx].size) {
         if (min_idx !== i) {
-          a[min_idx].color = "bg-gray-400";
+          a[min_idx].color = "bg-gray-600";
         }
         min_idx = j;
-        a[min_idx].color = "bg-green-400";
+        a[min_idx].color = "bg-purple-500";
         setArray([...a]);
       } else {
-        a[j].color = "bg-gray-400";
+        a[j].color = "bg-gray-600";
         setArray([...a]);
       }
       await sleep(speed);
     }
 
     swap(a, min_idx, i);
-    a[i].color = "bg-gray-400";
-    a[min_idx].color = "bg-gray-400";
+    a[i].color = "bg-gray-600";
+    a[min_idx].color = "bg-gray-600";
 
     setArray([...a]);
   }
@@ -71,13 +71,13 @@ export async function insertionSort(
     let j = i - 1;
 
     while (j >= 0 && a[j].size > key.size) {
-      a[j + 1].color = "bg-red-400";
-      a[j].color = "bg-green-400";
+      a[j + 1].color = "bg-blue-500";
+      a[j].color = "bg-purple-500";
       setArray([...a]);
       await sleep(speed);
       a[j + 1].size = a[j].size;
-      a[j + 1].color = "bg-gray-400";
-      a[j].color = "bg-gray-400";
+      a[j + 1].color = "bg-gray-600";
+      a[j].color = "bg-gray-600";
       setArray([...a]);
       await sleep(speed);
       j -= 1;
@@ -98,35 +98,35 @@ export async function quickSort(
     let pivot = a[high];
     let i = low - 1;
 
-    pivot.color = "bg-green-400";
+    pivot.color = "bg-orange-500";
     setArray([...a]);
     sleep(speed);
 
     for (let j = low; j <= high - 1; j++) {
       if (i > 0) {
-        a[i].color = "bg-orange-400";
+        a[i].color = "bg-purple-500";
       }
-      a[j].color = "bg-red-400";
+      a[j].color = "bg-blue-500";
       setArray([...a]);
       await sleep(speed);
       if (a[j].size < pivot.size) {
         if (i > 0) {
-          a[i].color = "bg-gray-400";
+          a[i].color = "bg-gray-600";
         }
         i += 1;
-        a[j].color = "bg-gray-400";
+        a[j].color = "bg-gray-600";
         swap(a, i, j);
         setArray([...a]);
         await sleep(speed);
       }
-      a[j].color = "bg-gray-400";
+      a[j].color = "bg-gray-600";
     }
     if (i > 0) {
-      a[i].color = "bg-gray-400";
+      a[i].color = "bg-gray-600";
     }
 
     swap(a, i + 1, high);
-    pivot.color = "bg-gray-400";
+    pivot.color = "bg-gray-600";
     setArray([...a]);
     await sleep(30);
 

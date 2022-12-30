@@ -12,7 +12,7 @@ export function generateArray(size: number) {
     values.add(newValue);
     array[i] = {
       size: newValue,
-      color: "bg-gray-400",
+      color: "bg-gray-600",
       key: i,
     };
   }

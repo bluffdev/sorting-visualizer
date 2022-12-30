@@ -81,6 +81,7 @@ export default function App() {
               className="inline-block text-white bg-gray-800 border-0 py-2 px-6 focus:outline-none hover:bg-gray-900 rounded-lg"
               onClick={() => {
                 setArray(generateArray(size));
+                setFinished(false);
               }}
               disabled={running}
             >
@@ -92,7 +93,7 @@ export default function App() {
       <div className="flex justify-center w-full">
         {array.map((value) => (
           <div
-            className={`border w-full ${value.color}`}
+            className={`border-x border-gray-100 rounded-b-md w-full ${value.color}`}
             style={{ height: `${value.size * 3}px` }}
             key={value.key}
           ></div>
