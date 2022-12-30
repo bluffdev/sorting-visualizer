@@ -3,7 +3,7 @@ import { generateArray } from "./utils";
 import { bubbleSort, insertionSort, selectionSort, quickSort } from "./algos";
 
 export default function App() {
-  let [size, setSize] = useState(80);
+  let [size, setSize] = useState(105);
   let [speed, setSpeed] = useState(7);
   let [array, setArray] = useState(generateArray(size));
   let [running, setRunning] = useState(false);
@@ -19,7 +19,7 @@ export default function App() {
             <input
               type="range"
               min="10"
-              max="150"
+              max="200"
               step={5}
               value={size}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
@@ -94,7 +94,7 @@ export default function App() {
         {array.map((value) => (
           <div
             className={`border-x border-gray-100 rounded-b-md w-full ${value.color}`}
-            style={{ height: `${value.size * 3}px` }}
+            style={{ height: `${value.size * 2}px` }}
             key={value.key}
           ></div>
         ))}

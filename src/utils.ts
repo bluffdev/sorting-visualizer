@@ -8,7 +8,10 @@ export function generateArray(size: number) {
   let values = new Set<number>();
   let array = new Array<block>(size);
   for (let i = 0; i < size; i++) {
-    let newValue = Math.floor(Math.random() * (275 - 25) + 25);
+    let newValue = Math.floor(Math.random() * (400 - 50) + 50);
+    while (values.has(newValue)) {
+      newValue = Math.floor(Math.random() * (400 - 50) + 50);
+    }
     values.add(newValue);
     array[i] = {
       size: newValue,
