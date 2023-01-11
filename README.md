@@ -11,7 +11,7 @@ You will need to have [Node.js](https://nodejs.org/en/) installed on your system
 Clone this repository and install the dependencies.
 
 ```bash
-git clone https://github.com/saxolandon/sorting-visualizer.git
+git clone https://github.com/trafguy/sorting-visualizer.git
 cd sorting-visualizer
 npm i
 ```
